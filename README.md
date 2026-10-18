@@ -14,6 +14,8 @@ instances private and accessing them securely through a bastion host.
 > **Completion date:** 18 October 2026\
 > **Repository:** https://github.com/KavyaRajeevs/EWB-VPC-PEERING
 
+Project Report with screenshots: KavyaR_EWB_VPC_Peering.pdf
+
 ------------------------------------------------------------------------
 
 ## 1. Project Overview

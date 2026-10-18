@@ -45,54 +45,8 @@ SSH `ProxyJump`.
 ------------------------------------------------------------------------
 
 ## 2. Architecture
+<img width="6362" height="4957" alt="architecture diagram" src="https://github.com/user-attachments/assets/e66fa3a6-8695-4ed8-8f92-fe6f78abc8f4" />
 
-![AWS VPC Peering
-Architecture](architecture diagram.png)
-
-
-## 3. AWS Resource Inventory
-
-  --------------------------------------------------------------------------------------
-  Resource          Name                 ID                           CIDR / IP
-  ----------------- -------------------- ---------------------------- ------------------
-  VPC A             `ewb-vpc-a`          `vpc-038316686e3fd79c8`      `10.10.0.0/16`
-
-  Public subnet     `ewb-a-public`       `subnet-0f9d07f78b20ce771`   `10.10.1.0/24`
-
-  Private subnet A  `ewb-a-private`      `subnet-052099c51ff85409f`   `10.10.2.0/24`
-
-  Public route      `ewb-rt-a-public`    `rtb-0d9a542b84f6b4d12`      ---
-  table A                                                             
-
-  Private route     `ewb-rt-a-private`   `rtb-0dac6f215be11025c`      ---
-  table A                                                             
-
-  VPC B             `ewb-vpc-b`          `vpc-0f62f07e9bbe3db94`      `10.20.0.0/16`
-
-  Private subnet B  `ewb-b-private`      `subnet-0c1329f736d171c25`   `10.20.1.0/24`
-
-  Private route     `ewb-rt-b-private`   `rtb-07b99b444b1e68f3e`      ---
-  table B                                                             
-
-  Internet Gateway  `ewb-igw-a`          `igw-0c08cbcb3b451d6f2`      Attached to VPC A
-
-  VPC Peering       `ewb-a-b-peer`       `pcx-046305deb7a5add5e`      VPC A → VPC B
-
-  Bastion           `ewb-bastion`        `i-01a47a3dd2ba1e204`        `10.10.1.10` /
-                                                                      `43.205.113.255`
-
-  App-A             `ewb-app-a`          `i-0c7203ccf92eaa15f`        `10.10.2.10` /
-                                                                      none
-
-  App-B             `ewb-app-b`          `i-04b421322faf3cfcf`        `10.20.1.10` /
-                                                                      none
-  --------------------------------------------------------------------------------------
-
-> **Note:** The AWS resources were deleted during cleanup. The IDs above
-> document the resources created during the project and are retained as
-> historical project evidence.
-
-------------------------------------------------------------------------
 
 ## 4. Network Design
 
@@ -483,13 +437,6 @@ Cleanup included:
 
 ------------------------------------------------------------------------
 
-## 14. Screenshots
-
-Project evidence is organized under the `screenshots/` directory.
-
-
-
-------------------------------------------------------------------------
 
 ## 15. What I Learned
 
@@ -514,41 +461,9 @@ The controlled ICMP failure also demonstrated how to troubleshoot
 connectivity layer by layer instead of assuming that a routing problem
 is responsible for every failure.
 
-------------------------------------------------------------------------
 
-## 16. Repository Structure
 
-``` text
-ewb-vpc-peering/
-│
-├── README.md
-│
-├── architecture/
-│   └── vpc-peering-architecture.png
-│
-└── screenshots/
-    ├── 01-subnet-association-public.png
-    ├── 02-subnet-association-private-a.png
-    ├── ...
-    └── 27-vpcs-deleted.png
-```
 
-------------------------------------------------------------------------
-
-## 17. Key Takeaways
-
-  Concept                   Implementation
-  ------------------------- --------------------------------
-  VPC isolation             Two VPCs with separate CIDRs
-  Private connectivity      VPC Peering
-  Internet access           IGW only on VPC A
-  Secure administration     Bastion + SSH ProxyJump
-  Application isolation     No public IPs on App-A/App-B
-  Routing                   Peering routes on both VPCs
-  Traffic control           Security Groups
-  Connectivity validation   ICMP + SSH
-  Failure isolation         Controlled security-group test
-  Cleanup                   All AWS resources removed
 
 ------------------------------------------------------------------------
 
